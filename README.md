@@ -9,7 +9,10 @@
 
 [![Watch the video](https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9)]
 
-
+<video width="720" controls>
+  <source src="https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
 
@@ -25,7 +28,7 @@ Audio and music generation have emerged as crucial tasks in many applications, y
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ea723225-f9c8-4ca2-8837-2c2c08189bdd" alt="method">
 </p>
-<p style="text-align: left;"><strong>(a) Overview of AudioX, illustrating its capabilities across various tasks. (b) Radar chart comparing the performance of different methods across multiple benchmarks. AudioX demonstrates superior Inception Scores (IS) across a diverse set of datasets in audio and music generation tasks.</strong></p>
+<p style="text-align: left;">(a) Overview of AudioX, illustrating its capabilities across various tasks. (b) Radar chart comparing the performance of different methods across multiple benchmarks. AudioX demonstrates superior Inception Scores (IS) across a diverse set of datasets in audio and music generation tasks.</p>
 
 
 ## ✨ Method
@@ -33,7 +36,7 @@ Audio and music generation have emerged as crucial tasks in many applications, y
 <p align="center">
   <img src="https://github.com/user-attachments/assets/94ea3df0-8c66-4259-b681-791ee41bada8" alt="method">
 </p>
-<p align="center"><strong>Overview of the AudioX Framework.</strong></p>
+<p align="center">Overview of the AudioX Framework.</p>
 
 
 
