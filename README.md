@@ -6,12 +6,9 @@
 **This is the repository for "AudioX: Diffusion Transformer for Anything-to-Audio Generation".**
 
 ## 📺 Demo Video
-<!-- [![Watch the video](https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9)] -->
-<p align="center">
-  <video width="80%" controls>
-    <source src="https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9" type="video/mp4">
-  </video>
-</p>
+
+https://github.com/user-attachments/assets/0d8dd927-ff0f-4b35-ab1f-b3c3915017be
+
 
 
 ## ✨ Abstract
