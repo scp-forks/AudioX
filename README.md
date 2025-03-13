@@ -7,10 +7,10 @@
 
 ## 📺 Demo Video
 
-[![Watch the video](https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9)]
+<!-- [![Watch the video](https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9)] -->
 
 <video width="100%" controls>
-  <source src="./static/videos/AudioX_DEMO.mov" type="video/mp4">
+  <source src="./static/videos/AudioX_DEMO.mp4" type="video/mp4">
 </video>
 
 
