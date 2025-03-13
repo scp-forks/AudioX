@@ -9,10 +9,10 @@
 
 [![Watch the video](https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9)]
 
-<video width="720" controls>
-  <source src="https://github.com/user-attachments/assets/498f7d3f-cb7c-4f32-92f0-4b71fa0712e9.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+<video width="100%" controls>
+  <source src="./static/videos/AudioX_DEMO.mov" type="video/mp4">
 </video>
+
 
 
 
