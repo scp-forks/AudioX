@@ -1,7 +1,7 @@
 # AudioX: Diffusion Transformer for Anything-to-Audio Generation
 
 
-[![githubio](https://img.shields.io/badge/GitHub.io-Project-blue?logo=Github&style=flat-square)](https://zeyuet.github.io/AudioX/)
+[![arXiv](https://img.shields.io/badge/arXiv-2503.10522-brightgreen.svg?style=flat-square)](https://arxiv.org/pdf/2503.10522) [![githubio](https://img.shields.io/badge/GitHub.io-Project-blue?logo=Github&style=flat-square)](https://zeyuet.github.io/AudioX/)
 
 **This is the repository for "AudioX: Diffusion Transformer for Anything-to-Audio Generation".**
 
