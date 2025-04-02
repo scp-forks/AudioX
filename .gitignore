@@ -173,6 +173,5 @@ logs/
 log/
 saved_ckpt/
 wandb/
-data/
 demo_result/
 model/
