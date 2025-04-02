@@ -1,14 +1,20 @@
-# AudioX: Diffusion Transformer for Anything-to-Audio Generation
+# 🎧 AudioX: Diffusion Transformer for Anything-to-Audio Generation
+
+[![arXiv](https://img.shields.io/badge/arXiv-2503.10522-brightgreen.svg?style=flat-square)](https://arxiv.org/abs/2503.10522)
+[![Project Page](https://img.shields.io/badge/GitHub.io-Project-blue?logo=Github&style=flat-square)](https://zeyuet.github.io/AudioX/)
+[![🤗 Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/HKUSTAudio/AudioX)
 
 
-[![arXiv](https://img.shields.io/badge/arXiv-2503.10522-brightgreen.svg?style=flat-square)](https://arxiv.org/pdf/2503.10522) [![githubio](https://img.shields.io/badge/GitHub.io-Project-blue?logo=Github&style=flat-square)](https://zeyuet.github.io/AudioX/)
+---
 
-**This is the repository for "AudioX: Diffusion Transformer for Anything-to-Audio Generation".**
+**This is the official repository for "[AudioX: Diffusion Transformer for Anything-to-Audio Generation](https://arxiv.org/pdf/2503.10522)".**
+
 
 ## 📺 Demo Video
 
 https://github.com/user-attachments/assets/0d8dd927-ff0f-4b35-ab1f-b3c3915017be
 
+---
 
 
 ## ✨ Abstract
@@ -34,8 +40,135 @@ Audio and music generation have emerged as crucial tasks in many applications, y
 
 
 ## Code
-To be released.
 
 
-<hr>
+### 🛠️ Environment Setup
 
+```bash
+git clone https://github.com/ZeyueT/AudioX.git
+cd AudioX
+conda create -n AudioX python=3.8.20
+conda activate AudioX
+pip install git+https://github.com/ZeyueT/AudioX.git
+conda install -c conda-forge ffmpeg libsndfile
+
+```
+
+## 🪄 Pretrained Checkpoints
+
+Download the pretrained model from 🤗 [AudioX on Hugging Face](https://huggingface.co/HKUSTAudio/AudioX):
+
+```bash
+mkdir -p model
+wget https://huggingface.co/HKUSTAudio/AudioX/resolve/main/model.ckpt -O model/model.ckpt
+wget https://huggingface.co/HKUSTAudio/AudioX/resolve/main/config.json -O model/config.json
+```
+
+### 🤗 Gradio Demo
+
+To launch the Gradio demo locally, run:
+
+```bash
+python3 run_gradio.py \
+    --model-config model/config.json \
+    --share
+```
+
+
+### 🎯 Prompt Configuration Examples
+
+| Task                 | `video_path`       | `text_prompt`                                 | `audio_path` |
+|:---------------------|:-------------------|:----------------------------------------------|:-------------|
+| Text-to-Audio (T2A)  | `None`             | `"Typing on a keyboard"`                      | `None`       |
+| Text-to-Music (T2M)  | `None`             | `"A music with piano and violin"`             | `None`       |
+| Video-to-Audio (V2A) | `"video_path.mp4"` | `"Generate general audio for the video"`      | `None`       |
+| Video-to-Music (V2M) | `"video_path.mp4"` | `"Generate music for the video"`              | `None`       |
+| TV-to-Audio (TV2A)   | `"video_path.mp4"` | `"Ocean waves crashing with people laughing"` | `None`       |
+| TV-to-Music (TV2M)   | `"video_path.mp4"` | `"Generate music with piano instrument"`      | `None`       |
+
+### 🖥️ Script Inference
+
+```python
+import torch
+import torchaudio
+from einops import rearrange
+from stable_audio_tools import get_pretrained_model
+from stable_audio_tools.inference.generation import generate_diffusion_cond
+from stable_audio_tools.data.utils import read_video, merge_video_audio
+from stable_audio_tools.data.utils import load_and_process_audio
+import os
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+# Download model
+model, model_config = get_pretrained_model("HKUSTAudio/AudioX")
+sample_rate = model_config["sample_rate"]
+sample_size = model_config["sample_size"]
+target_fps = model_config["video_fps"]
+seconds_start = 0
+seconds_total = 10
+
+model = model.to(device)
+
+# for video-to-music generation
+video_path = "example/V2M_sample-1.mp4"
+text_prompt = "Generate music for the video" 
+audio_path = None
+
+video_tensor = read_video(video_path, seek_time=0, duration=seconds_total, target_fps=target_fps)
+audio_tensor = load_and_process_audio(audio_path, sample_rate, seconds_start, seconds_total)
+
+conditioning = [{
+    "video_prompt": [video_tensor.unsqueeze(0)],        
+    "text_prompt": text_prompt,
+    "audio_prompt": audio_tensor.unsqueeze(0),
+    "seconds_start": seconds_start,
+    "seconds_total": seconds_total
+}]
+    
+# Generate stereo audio
+output = generate_diffusion_cond(
+    model,
+    steps=250,
+    cfg_scale=7,
+    conditioning=conditioning,
+    sample_size=sample_size,
+    sigma_min=0.3,
+    sigma_max=500,
+    sampler_type="dpmpp-3m-sde",
+    device=device
+)
+
+# Rearrange audio batch to a single sequence
+output = rearrange(output, "b d n -> d (b n)")
+
+# Peak normalize, clip, convert to int16, and save to file
+output = output.to(torch.float32).div(torch.max(torch.abs(output))).clamp(-1, 1).mul(32767).to(torch.int16).cpu()
+torchaudio.save("output.wav", output, sample_rate)
+
+if video_path is not None and os.path.exists(video_path):
+    merge_video_audio(video_path, "output.wav", "output.mp4", 0, seconds_total)
+
+```
+
+
+## 🚀 Citation
+
+If you find our work useful, please consider citing:
+
+```
+@article{tian2025audiox,
+  title={AudioX: Diffusion Transformer for Anything-to-Audio Generation},
+  author={Tian, Zeyue and Jin, Yizhu and Liu, Zhaoyang and Yuan, Ruibin and Tan, Xu and Chen, Qifeng and Xue, Wei and Guo, Yike},
+  journal={arXiv preprint arXiv:2503.10522},
+  year={2025}
+}
+```
+
+## 📭 Contact
+
+If you have any comments or questions, feel free to contact Zeyue Tian(ztianad@connect.ust.hk).
+
+## License
+
+Please follow [MIT License](./LICENSE).
