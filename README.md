@@ -171,4 +171,4 @@ If you have any comments or questions, feel free to contact Zeyue Tian(ztianad@c
 
 ## License
 
-Please follow [MIT License](./LICENSE).
+Please follow [CC-BY-NC](./LICENSE).
