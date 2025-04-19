@@ -5,6 +5,10 @@
 [![🤗 Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/HKUSTAudio/AudioX)
 
 
+## Personal Details of Fork
+
+We have created an "environment.yml" using the conda command "conda env export > environment.yml" to help you set up the environment. There are some issues around using the video component so we've disabled it for now.
+
 ---
 
 **This is the official repository for "[AudioX: Diffusion Transformer for Anything-to-Audio Generation](https://arxiv.org/pdf/2503.10522)".**
